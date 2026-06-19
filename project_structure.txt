@@ -1,0 +1,143 @@
+my-agentic-ai/
+│
+├── .github/                          # GitHub-specific configurations
+│   ├── workflows/
+│   │   ├── ci.yml                    # CI pipeline (lint, test, build)
+│   │   ├── cd.yml                    # CD pipeline (deploy)
+│   │   └── pr-checks.yml             # PR validation checks
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.md
+│   │   └── feature_request.md
+│   └── PULL_REQUEST_TEMPLATE.md
+│
+├── data/                             # all input/output typed with pydantic V2
+│   ├── raw/
+│   ├── processed/
+│   └── eval_datasets/
+│
+├── docs/                             # Project documentation
+│   ├── architecture.md               # System design & agent flow diagrams
+│   ├── tools.md                      # Tool reference
+│   ├── api.md                        # API reference
+│   └── contributing.md
+│
+├── docker/                           # Docker assets
+│   ├── Dockerfile
+│   ├── Dockerfile.dev
+│   └── docker-compose.yml
+│
+├── src/                              # Main source code
+│   └── my_agent/
+│       ├── __init__.py
+│       │
+│       ├── agents/                   # Agent definitions & orchestration
+│       │   ├── __init__.py
+│       │   ├── base_agent.py         # Abstract base agent class
+│       │   ├── orchestrator.py       # Multi-agent orchestrator / supervisor
+│       │   ├── planner_agent.py      # Planning / reasoning agent
+│       │   ├── executor_agent.py     # Task execution agent
+│       │   └── critic_agent.py       # Reflection / evaluation agent
+│       │
+│       ├── tools/                    # Agent tools / function calls
+│       │   ├── __init__.py
+│       │   ├── base_tool.py          # Abstract tool interface
+│       │   ├── web_search.py         # Web search tool
+│       │   ├── code_executor.py      # Code execution tool
+│       │   ├── file_reader.py        # File I/O tool
+│       │   └── api_caller.py         # External API tool
+│       │
+│       ├── memory/                   # Memory & state management
+│       │   ├── __init__.py
+│       │   ├── short_term.py         # In-context / buffer memory
+│       │   ├── long_term.py          # Vector store / persistent memory
+│       │   └── episodic.py           # Episodic / conversation history
+│       │
+│       ├── llm/                      # LLM client wrappers
+│       │   ├── __init__.py
+│       │   ├── base_llm.py           # Abstract LLM interface
+│       │   ├── openai_client.py      # OpenAI / Azure OpenAI wrapper
+│       │   ├── anthropic_client.py   # Anthropic Claude wrapper
+│       │   └── local_llm.py          # Local model (Ollama, etc.)
+│       │
+│       ├── prompts/                  # Prompt templates
+│       │   ├── __init__.py
+│       │   ├── system_prompts.py     # System-level prompt definitions
+│       │   ├── planner_prompts.py
+│       │   ├── executor_prompts.py
+│       │   └── templates/            # Jinja2 / raw prompt files
+│       │       ├── plan.j2
+│       │       └── reflect.j2
+│       │
+│       ├── workflows/                # Agentic workflow / graph definitions
+│       │   ├── __init__.py
+│       │   ├── graph.py              # LangGraph / custom DAG definition
+│       │   ├── nodes.py              # Workflow node implementations
+│       │   └── edges.py              # Conditional edge logic
+│       │
+│       ├── schemas/                  # Pydantic data models & schemas
+│       │   ├── __init__.py
+│       │   ├── agent_state.py        # Agent state model
+│       │   ├── tool_schemas.py       # Tool input/output schemas
+│       │   └── message.py            # Message / event schemas
+│       │
+│       ├── services/                 # External service integrations
+│       │   ├── __init__.py
+│       │   ├── vector_store.py       # Pinecone / Chroma / Weaviate
+│       │   ├── database.py           # SQL / NoSQL DB client
+│       │   └── cache.py              # Redis / in-memory cache
+│       │
+│       ├── api/                      # REST / WebSocket API layer
+│       │   ├── __init__.py
+│       │   ├── app.py                # FastAPI app factory
+│       │   ├── routes/
+│       │   │   ├── agent.py          # Agent invocation endpoints
+│       │   │   └── health.py         # Health check endpoint
+│       │   └── middleware.py         # Auth, logging, CORS middleware
+│       │
+│       ├── config/                   # Configuration management
+│       │   ├── __init__.py
+│       │   ├── settings.py           # Pydantic BaseSettings config
+│       │   └── logging.py            # Logging configuration structured
+│       │
+│       ├── utils/                    # Shared utilities (helper, formatting)
+│       │   ├── __init__.py
+│       │   ├── retry.py              # Retry / backoff helpers
+│       │   ├── token_counter.py      # Token counting utilities
+│       │   └── helpers.py            # Misc helper functions
+│       │
+│── tests/                    # Test suite, pytest, unittest
+│       │   ├── __init__.py
+│       │   ├── conftest.py           # Pytest fixtures & shared setup
+│       │   ├── unit/
+│       │   │   ├── test_agents.py
+│       │   │   ├── test_tools.py
+│       │   │   ├── test_memory.py
+│       │   │   └── test_prompts.py
+│       │   ├── integration/
+│       │   │   ├── test_workflow.py
+│       │   │   └── test_api.py
+│       │   └── e2e/
+│       │       └── test_full_run.py  # End-to-end agent run tests
+│       │
+│── notebooks/                # Jupyter notebooks for experimentation
+│       │   ├── 01_agent_exploration.ipynb
+│       │   ├── 02_prompt_engineering.ipynb
+│       │   └── 03_evaluation.ipynb
+│       │
+│── scripts/                  # Utility & ops scripts
+│           ├── run_agent.py          # CLI entry point
+│           ├── seed_memory.py        # Pre-populate vector store
+│           └── evaluate.py           # Offline evaluation runner
+│
+├── .env.example                      # Environment variable template (no hard code)
+├── .gitignore
+├── .pre-commit-config.yaml           # Pre-commit hooks (ruff, mypy, etc.)
+├── pipeline.yaml
+├── dockerfile
+├── pyproject.toml                    # variable: input/output path, log, tool config
+├── uv.lock / poetry.lock             # Dependency lock file - reproducibility
+├── Makefile                          # Common dev commands
+├── start.sh                          # system / certificate/verify file, key, run py
+├── LICENSE.txt                        # MIT License
+├── requirements.txt                  # required library (numpy==1.26.4, requests)
+└── README.md                         # Project overview & quickstart

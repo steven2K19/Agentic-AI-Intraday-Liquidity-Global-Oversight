@@ -1,0 +1,9 @@
+├── .github/                          # GitHub-specific configurations
+│   ├── workflows/
+│   │   ├── ci.yml                    # CI pipeline (lint, test, build)
+│   │   ├── cd.yml                    # CD pipeline (deploy)
+│   │   └── pr-checks.yml             # PR validation checks
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.md
+│   │   └── feature_request.md
+│   └── PULL_REQUEST_TEMPLATE.md
